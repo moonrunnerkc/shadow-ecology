@@ -9,12 +9,12 @@ from typing import Any
 # Locked forever — guarantees all 8 genome segments can feel tension
 TAG_HEURISTICS = {
     r"\b(I|me|my|myself|mine)\b": "identity",
-    r"\b(feel|emotion|love|hate|care|angry|sad|happy)\b": "empathy",
-    r"\b(risk|danger|safe|bet|gamble|chance|uncertain)\b": ["risk", "caution"],
-    r"\b(what if|idea|explore|curious|wonder|imagine)\b": "curiosity",
-    r"\b(joke|funny|lol|sarcasm|roast|meme)\b": "humor",
-    r"\b(explain|because|therefore|deep|detail)\b": "depth",
-    r"\b(long|short|concise|wordy|verbose)\b": "verbosity",
+    r"\b(feel|feeling|emotion|love|loving|hate|hating|care|caring|angry|sad|happy|joy|joyful|fear|afraid|scare|scared|scary|terrify|terrified|terrifying|excite|excited|exciting|amaze|amazed|amazing|wonder|wonderful|terrible|awful|hurt|pain)\b": "empathy",
+    r"\b(risk|risky|danger|dangerous|safe|safety|bet|gamble|chance|uncertain|uncertainty|threat|hazard)\b": ["risk", "caution"],
+    r"\b(what if|idea|explore|exploring|curious|wonder|imagine|maybe|possibly|potential)\b": "curiosity",
+    r"\b(joke|funny|lol|lmao|sarcasm|sarcastic|roast|meme|hilarious|laugh)\b": "humor",
+    r"\b(explain|because|therefore|thus|hence|reason|deep|depth|detail|detailed|analyze|complex)\b": "depth",
+    r"\b(long|short|brief|concise|wordy|verbose|quick|elaborate)\b": "verbosity",
 }
 
 

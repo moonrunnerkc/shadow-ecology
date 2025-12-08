@@ -8,7 +8,7 @@ from shadowecology.ecology.tension import node_tension
 
 
 # TENSION_THRESHOLD for conditional creation
-TENSION_THRESHOLD = 1.5
+TENSION_THRESHOLD = 0.5
 
 
 # create conditional nodes from high-tension contradictions
