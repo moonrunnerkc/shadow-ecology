@@ -1,0 +1,21 @@
+# Author: Bradley R. Kinnard
+# Date: 2025-10-08
+# Description: This file lists the Python package dependencies for the project.
+
+torch>=2.4.0
+
+vllm>=0.6.0
+
+cryptography>=43.0.1
+
+msgpack>=1.0.8
+
+matplotlib>=3.9.0
+
+tqdm>=4.66.0
+
+numpy>=1.26.0
+
+pyyaml>=6.0
+
+pillow>=10.0.0
