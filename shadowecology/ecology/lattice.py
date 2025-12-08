@@ -47,7 +47,7 @@ class Lattice:
             "content": content,
             "confidence": confidence,
             "source": source,
-            "tags": self.extract_tags(content),
+            "tags": self.extract_tags(content) or ["untagged"],
             "created_step": current_step,
             "last_active_step": current_step,
         }
