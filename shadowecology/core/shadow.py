@@ -6,8 +6,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from shadowecology.core.identity import Identity
-from shadowecology.core.lifecycle import get_identity, current_mode
+from shadowecology.core.identity import Identity, fresh_identity
 
 
 class Shadow:
@@ -18,15 +17,23 @@ class Shadow:
     """
 
     def __init__(self, mode: str | None = None):
-        # resolve mode once at construction
+        # resolve mode - must be set before importing lifecycle
         if mode:
             os.environ["SHADOWECOLOGY_MODE"] = mode.lower()
 
-        self._identity: Identity = get_identity()
+        # import here to pick up env var
+        from shadowecology.core.lifecycle import get_identity, current_mode
+        self._current_mode = current_mode()
+
+        # get identity based on mode
+        if self._current_mode == "demo":
+            self._identity: Identity = fresh_identity("demo_ephemeral")
+        else:
+            self._identity: Identity = get_identity()
 
     @property
     def mode(self) -> str:
-        return current_mode()
+        return self._current_mode
 
     @property
     def step(self) -> int:
@@ -44,4 +51,67 @@ class Shadow:
             Returns:
                 (trace, response) tuple
         """
-        raise NotImplementedError("ingest() pipeline coming in Day 7-8")
+        from shadowecology.oracle.trace import Trace
+        from shadowecology.oracle.local import generate
+        from shadowecology.helix.express import express
+        from shadowecology.helix.mutate import mutate
+        from shadowecology.helix.genome import Genome
+        from shadowecology.ecology.lattice import Lattice
+        from shadowecology.ecology.tension import tension_by_tag
+        from shadowecology.ecology.decay import apply_decay
+        from shadowecology.ecology.merge import attempt_merge
+        from shadowecology.ecology.conditional import attempt_conditional
+        from shadowecology.core.identity import Identity
+
+        trace = Trace()
+        messages = thread.get("messages", [])
+
+        # convert stored data to working objects
+        lattice = Lattice.from_dict(self._identity.lattice)
+        genome = Genome.from_bytes(self._identity.genome)
+        current_step = self._identity.step
+
+        # process each message
+        for msg in messages:
+            current_step += 1
+
+            # extract beliefs from message
+            content = msg.get("content", "")
+            if content:
+                lattice.add_belief(content, 0.8, msg.get("role", "user"), current_step)
+
+            # run ecology cycle
+            all_ids = set(lattice.nodes.keys())
+            apply_decay(lattice, current_step, set())
+            attempt_conditional(lattice, current_step, all_ids)
+            all_ids = set(lattice.nodes.keys())
+            attempt_merge(lattice, current_step, all_ids)
+
+            # calculate tension
+            tension = tension_by_tag(lattice, current_step)
+
+            # mutate genome under tension
+            genome = mutate(genome, tension, current_step)
+
+            # capture trace frame
+            trace.append(lattice, current_step, tension)
+
+        # generate response with current biases
+        biases = express(genome)
+        try:
+            response = generate(messages, biases)
+        except Exception:
+            # fallback if vLLM not installed (demo/test mode)
+            response = f"[Mock response - biases: curiosity={biases['curiosity']:.2f}, risk={biases['risk']:.2f}]"
+
+        # update identity with evolved state
+        self._identity = Identity(
+            schema_version=self._identity.schema_version,
+            identity_id=self._identity.identity_id,
+            created_at=self._identity.created_at,
+            step=current_step,
+            genome=genome.to_bytes(),
+            lattice=lattice.to_dict()
+        )
+
+        return trace, response

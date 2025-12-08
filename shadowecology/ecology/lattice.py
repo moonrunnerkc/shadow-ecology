@@ -55,6 +55,12 @@ class Lattice:
         # init edge dict for this node
         self.edges[node_id] = {}
 
+        # TODO: Add automatic edge creation logic
+        # Should detect contradictions between new node and existing nodes
+        # Based on opposing sentiment in same tag domain
+        # e.g., "I love danger" vs "Danger will kill me" → contradiction edge (-1.0)
+        # This is what creates tension and drives genome mutation
+
         return node_id
 
     # fetch node by ID
