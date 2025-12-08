@@ -1,0 +1,40 @@
+=== INITIAL STATE ===
+Nodes: 5
+  I feel amazing about this                          conf=0.90 tags=['empathy', 'identity']
+  I feel terrible about this                         conf=0.90 tags=['empathy', 'identity']
+  I feel amazing about this                          conf=0.70 tags=['empathy', 'identity']
+  Exploring feels exciting                           conf=0.80 tags=['curiosity', 'empathy']
+  Exploring feels terrifying                         conf=0.85 tags=['curiosity', 'empathy']
+
+=== AFTER 50 STEPS ===
+Nodes: 5
+  I feel terrible about this                                   conf=0.54 tags=['empathy', 'identity']
+  I feel amazing about this                                    conf=0.61 tags=['empathy', 'identity']
+  Exploring feels exciting                                     conf=0.48 tags=['curiosity', 'empathy']
+  Exploring feels terrifying                                   conf=0.51 tags=['curiosity', 'empathy']
+  I believe Exploring feels exciting when Exploring feels terr conf=0.80 tags=['curiosity', 'empathy', 'identity']
+
+=== EDGES ===
+  I feel amazing about this -> I feel amazing about this: +1.0
+  Exploring feels exciting -> Exploring feels terrifying: -0.8
+  Exploring feels exciting -> I believe Exploring feels exci: +1.0
+  Exploring feels terrifying -> I believe Exploring feels exci: +1.0
+  I believe Exploring feels exci -> I believe Exploring feels exci: +1.0
+
+=== TENSION BY TAG ===
+  identity    : 0.000
+  empathy     : 0.697
+  risk        : 0.000
+  caution     : 0.000
+  curiosity   : 0.697
+  humor       : 0.000
+  depth       : 0.000
+  verbosity   : 0.000
+
+=== VERIFICATION ===
+✓ Merge and/or conditional occurred
+✓ Conditional synthesis occurred
+✓ Decay applied
+✓ Tension on 2 tags: ['empathy', 'curiosity']
+
+✓✓✓ ECOLOGY IS ALIVE ✓✓✓

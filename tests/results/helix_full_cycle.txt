@@ -1,0 +1,56 @@
+=== STEP 1: BIRTH ===
+Fresh genome biases:
+  curiosity   : 0.514
+  caution     : 0.525
+  humor       : 0.481
+  verbosity   : 0.523
+  depth       : 0.520
+  risk        : 0.481
+  empathy     : 0.492
+  identity    : 0.507
+✓ All biases in valid range, curiosity floor active
+
+=== STEP 2: CREATE PAINFUL CONTRADICTION ===
+Node 1: I love danger
+  Tags: ['empathy', 'risk', 'caution', 'identity']
+Node 2: Danger will kill me
+  Tags: ['risk', 'caution', 'identity']
+Edge: -1.0 (strong contradiction)
+
+=== STEP 3: GENERATE MASSIVE TENSION ===
+Tension by tag:
+  identity    : 0.950
+  empathy     : 0.950
+  risk        : 0.950
+  caution     : 0.950
+✓ High tension detected
+
+=== STEP 4: MUTATE UNDER EXTREME PAIN (1000 steps) ===
+First mutation at step: 0
+
+=== STEP 5: VERIFY EVOLUTION ===
+
+Before → After:
+  risk        : 0.481 → 0.475 (-0.007)
+  caution     : 0.525 → 0.498 (-0.027)
+  identity    : 0.507 → 0.502 (-0.005)
+  curiosity   : 0.514 → 0.514 (+0.000)
+
+Total bits flipped: 1769
+✓ Genome mutated (1769 bits)
+✓ Risk shifted: 0.007
+✓ Caution shifted: 0.027
+✓ Identity shifted: 0.005 (protected)
+✓ Curiosity floor maintained
+
+=== STEP 6: PERSISTENCE ROUND-TRIP ===
+✓ Serialization perfect
+
+✓✓✓ HELIX ENGINE ALIVE AND ADAPTIVE ✓✓✓
+
+=== BONUS TEST: IDENTITY PROTECTION ===
+Initial identity bias: 0.509
+Running 5000 mutation steps with extreme identity tension...
+Final identity bias: 0.512
+Total change: 0.003
+✓ Identity protected (changed by 0.003 despite extreme tension)
