@@ -55,11 +55,41 @@ class Lattice:
         # init edge dict for this node
         self.edges[node_id] = {}
 
-        # TODO: Add automatic edge creation logic
-        # Should detect contradictions between new node and existing nodes
-        # Based on opposing sentiment in same tag domain
-        # e.g., "I love danger" vs "Danger will kill me" → contradiction edge (-1.0)
-        # This is what creates tension and drives genome mutation
+        # detect contradictions with existing nodes
+        new_tags = set(self.nodes[node_id]["tags"])
+        new_lower = content.lower()
+
+        for existing_id, existing_node in self.nodes.items():
+            if existing_id == node_id:
+                continue
+
+            existing_tags = set(existing_node["tags"])
+            shared_tags = new_tags & existing_tags
+
+            if not shared_tags or "untagged" in shared_tags:
+                continue
+
+            # check for opposing sentiment in same tag domain
+            existing_lower = existing_node["content"].lower()
+
+            # positive vs negative sentiment indicators
+            positive = r"\b(love|loving|enjoy|enjoying|like|liking|want|wanting|excite|excited|exciting|amaze|amazed|amazing|wonderful|great|good|yes|safe|safety)\b"
+            negative = r"\b(hate|hating|fear|afraid|scare|scared|scary|terrify|terrified|terrifying|danger|dangerous|threat|kill|death|awful|terrible|bad|no|avoid)\b"
+
+            new_positive = bool(re.search(positive, new_lower))
+            new_negative = bool(re.search(negative, new_lower))
+            existing_positive = bool(re.search(positive, existing_lower))
+            existing_negative = bool(re.search(negative, existing_lower))
+
+            # contradiction = opposite sentiments about same topic
+            if (new_positive and existing_negative) or (new_negative and existing_positive):
+                # bidirectional contradiction edges
+                self.edges[node_id][existing_id] = -1.0
+                self.edges[existing_id][node_id] = -1.0
+            elif (new_positive and existing_positive) or (new_negative and existing_negative):
+                # same sentiment = support edge
+                self.edges[node_id][existing_id] = 0.5
+                self.edges[existing_id][node_id] = 0.5
 
         return node_id
 

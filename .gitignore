@@ -46,3 +46,10 @@ shadowecology/vault/state/*.msgpack.enc
 
 # Keep the state directory but ignore contents
 !shadowecology/vault/state/.gitkeep
+
+# Local model files (big binaries) — do NOT commit
+shadowecology/models/
+
+# Test outputs and generated artifacts
+tests/results/
+*.gif

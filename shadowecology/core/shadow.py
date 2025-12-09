@@ -98,11 +98,7 @@ class Shadow:
 
         # generate response with current biases
         biases = express(genome)
-        try:
-            response = generate(messages, biases)
-        except Exception:
-            # fallback if vLLM not installed (demo/test mode)
-            response = f"[Mock response - biases: curiosity={biases['curiosity']:.2f}, risk={biases['risk']:.2f}]"
+        response = generate(messages, biases)
 
         # update identity with evolved state
         self._identity = Identity(

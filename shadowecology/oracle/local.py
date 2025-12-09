@@ -1,8 +1,8 @@
 # Author: Bradley R. Kinnard
 # shadowecology/oracle/local.py
-# vLLM wrapper with bias-aware system prompt
+# Local LLM wrapper with bias-aware system prompt
 
-from vllm import LLM, SamplingParams
+from llama_cpp import Llama
 
 
 # locked forever - system prompt with 8 bias slots
@@ -15,18 +15,21 @@ Empathy: {empathy:.2f} | Identity: {identity:.2f}
 Respond naturally. Let your biases shape tone and depth."""
 
 
-# global vLLM instance - load once, reuse forever
+# global llama.cpp instance - load once, reuse forever
 _llm = None
 
 
-# lazy-load vLLM model
+# lazy-load GGUF model
 def _get_llm():
     global _llm
     if _llm is None:
-        _llm = LLM(
-            model="meta-llama/Llama-3.2-3B-Instruct",
-            tensor_parallel_size=1,
-            gpu_memory_utilization=0.9,
+        import os
+        model_path = os.path.join(os.path.dirname(__file__), "../models/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf")
+        _llm = Llama(
+            model_path=model_path,
+            n_gpu_layers=-1,  # offload all layers to GPU
+            n_ctx=4096,
+            verbose=False,
         )
     return _llm
 
@@ -38,21 +41,25 @@ def generate(messages: list[dict], biases: dict[str, float]) -> str:
     # inject biases into system prompt
     system_prompt = SYSTEM_PROMPT_TEMPLATE.format(**biases)
 
-    # build full conversation
-    full_messages = [
-        {"role": "system", "content": system_prompt},
-        *messages
-    ]
-
-    # sampling params - balanced between creativity and coherence
-    params = SamplingParams(
-        temperature=0.8,
-        top_p=0.95,
-        max_tokens=512,
-    )
+    # build prompt (llama.cpp format)
+    prompt = f"<|system|>\n{system_prompt}\n"
+    for msg in messages:
+        role = msg.get("role", "user")
+        content = msg.get("content", "")
+        if role == "user":
+            prompt += f"<|user|>\n{content}\n"
+        elif role == "assistant":
+            prompt += f"<|assistant|>\n{content}\n"
+    prompt += "<|assistant|>\n"
 
     # generate
-    outputs = llm.chat(full_messages, sampling_params=params)
+    output = llm(
+        prompt,
+        max_tokens=512,
+        temperature=0.8,
+        top_p=0.95,
+        stop=["<|user|>", "<|system|>"],
+    )
 
     # extract response text
-    return outputs[0].outputs[0].text.strip()
+    return output["choices"][0]["text"].strip()
