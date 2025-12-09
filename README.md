@@ -15,28 +15,29 @@ No gradient descent. No fine-tuning. No reward functions. Just beliefs, edges, t
 
 ## Current State
 
-**Working:**
-- ✅ Vault system (AES-256-GCM + YubiKey + atomic writes)
-- ✅ Belief lattice with automatic contradiction detection
-- ✅ Tension calculation (per-node + aggregated by tag)
+**Complete and Working:**
+- ✅ Vault system (AES-256-GCM + optional YubiKey + atomic writes)
+- ✅ Belief lattice with automatic contradiction detection via sentiment analysis
+- ✅ Tension calculation (per-node + aggregated by cognitive tag)
 - ✅ 8192-bit genome (8 segments: curiosity, caution, humor, verbosity, depth, risk, empathy, identity)
 - ✅ Genome mutation under tension with weighted segment mutation
-- ✅ Personality expression (genome → 8 bias floats)
-- ✅ LLM integration (llama.cpp with GPU offload)
-- ✅ Trace visualization (animated GIF of tension evolution)
-- ✅ Full pipeline: `Shadow().ingest(thread)` → evolved response
+- ✅ Personality expression (genome → 8 bias floats with curiosity floor at 0.30)
+- ✅ GPU-accelerated LLM integration (llama-cpp-python with CUDA)
+- ✅ Deep-space neon trace visualization (animated GIF)
+- ✅ Full pipeline: `Shadow().ingest(thread)` → trace + evolved response
+- ✅ Three modes: real (vault), dev (passphrase only), demo (ephemeral)
 
-**Test Results (Dec 8, 2025):**
+**Latest Test Results (Dec 8, 2025):**
 ```
 ✓ 18 bits mutated in genome
-✓ Tension detected: 4.9+ across identity, empathy, risk, caution
+✓ Tension: 4.9+ across identity, empathy, risk, caution tags
 ✓ 2 conditional nodes created from contradictions
-✓ Real LLM response (429 chars, Llama-3.1-8B)
-✓ GIF trace generated: 82.3 KB, 8 frames
-✓ Mode: demo, Final step: 8
+✓ Response: 1.3KB (Llama-3.1-8B on RTX 5070)
+✓ Trace GIF: 141KB, 10 frames, deep-space neon aesthetic
+✓ Persistent vault: step counter 8 → 16 → 24 across runs
 ```
 
-See `tests/results/final_test.txt` for full output.
+See `tests/results/final_test.txt` and `demo/output/` for complete outputs.
 
 ## How To Use
 
@@ -46,9 +47,10 @@ from shadowecology import Shadow
 # load thread data
 thread = {
     "messages": [
-        {"role": "user", "content": "I feel alive when I'm scared..."},
-        {"role": "user", "content": "Sometimes playing it safe feels like dying slowly..."},
-        # ... more messages
+        {"role": "user", "content": "I want to take insane risks and change the world"},
+        {"role": "assistant", "content": "That sounds incredibly dangerous"},
+        {"role": "user", "content": "What if we never take risks? Isn't that the real death?"},
+        # ... creates explosive tension across risk/caution/identity/curiosity
     ]
 }
 
@@ -56,17 +58,24 @@ thread = {
 shadow = Shadow(mode="demo")
 trace, response = shadow.ingest(thread)
 
-# save outputs
+# save deep-space neon visualization
 trace.save_gif("shadow_trace.gif")
 print(response)
 ```
 
-**Modes:**
-- `Shadow()` — real mode (requires YubiKey + encrypted vault)
-- `Shadow(mode="dev")` — passphrase only (no YubiKey)
-- `Shadow(mode="demo")` — ephemeral in-memory state
+**The GIF shows:**
+- Neon nodes pulsing with cognitive tension (size = tension level)
+- Hot red contradiction edges vs bright green agreement edges
+- Rainbow of 8 personality dimensions (cyan curiosity, gold identity, hot pink humor, etc.)
+- Glow rings around high-tension nodes
+- Frame-by-frame evolution as beliefs contradict and genome mutates
 
-See `demo/run.py` for a complete working example.
+**Modes:**
+- `Shadow()` — real mode (optional YubiKey + encrypted vault)
+- `Shadow(mode="dev")` — passphrase only, persistent vault (recommended)
+- `Shadow(mode="demo")` — ephemeral in-memory state for testing
+
+See `demo/run.py` and `test_real_mode.py` for complete working examples.
 
 ## How It Works
 
@@ -106,9 +115,15 @@ See `demo/run.py` for a complete working example.
 - Models loaded from `shadowecology/models/` (not committed to repo)
 
 **Visualization:**
-- matplotlib + PIL for trace GIF generation
-- Node size/color mapped to tension level
-- One frame per processed message
+- Deep-space black background (#000000) with neon color palette
+- Hand-tuned colors: electric cyan (curiosity), pure gold (identity), hot pink (humor), vivid orange (caution/risk)
+- Neon glow rings around high-tension nodes (tension > 0.5)
+- Thicker contradiction edges (4px hot red) vs agreement edges (3px bright green)
+- Spring-force circular layout with visual jitter for organic feel
+- Crisp white labels with black stroke for readability on any screen
+- Per-frame title: "Cognitive Tension – Step N"
+- Optimized to ~140KB via palette quantization (64 colors) + disposal optimization
+- One frame per message processed, 600ms duration
 
 ## Installation
 
