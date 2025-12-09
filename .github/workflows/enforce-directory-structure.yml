@@ -1,0 +1,11 @@
+# .github/workflows/enforce-directory-structure.yml
+name: Enforce Directory Structure
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify top-level directories
+        run: |
+          ls -1 | grep -v -E '^(shadowecology|demo|scripts|bench|.github|requirements\.txt|pyproject\.toml|SPEC_v2\.md|README\.md|LICENSE|theory\.md|\.git)$' && exit 1 || echo "Structure OK"
