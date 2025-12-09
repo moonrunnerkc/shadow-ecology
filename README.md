@@ -9,7 +9,7 @@ A cognitive architecture where contradictions create tension, tension mutates pe
 
 ## What This Is
 
-Feed it contradictory thoughts. Watch it build a belief graph where opposing ideas coexist. See tension accumulate at the contradiction points. Then watch a 512-float genome mutate in response — smooth trait shifts across curiosity, caution, risk tolerance, depth, humor, empathy, verbosity, and core stability.
+Feed it contradictory thoughts. Watch it build a belief graph where opposing ideas coexist. See tension accumulate at the contradiction points. Then watch a 512-float genome mutate in response - smooth trait shifts across curiosity, caution, risk tolerance, depth, humor, empathy, verbosity, and core stability.
 
 Those mutations express as personality changes that reshape how an LLM responds. Not through training. Just accumulated cognitive pressure over time, with real neural network models detecting contradictions.
 
@@ -23,21 +23,21 @@ Those mutations express as personality changes that reshape how an LLM responds.
 
 The system has been rebuilt from the ground up with production-grade components:
 
-- **GenomeV2**: 512 continuous floats (64 per trait) instead of binary bits — enables smooth personality evolution
+- **GenomeV2**: 512 continuous floats (64 per trait) instead of binary bits - enables smooth personality evolution
 - **DeBERTa-v3 NLI**: Real neural network contradiction detection (0.991 confidence) replaces keyword heuristics
 - **FAISS Semantic Search**: Fast similarity matching for belief deduplication and contradiction candidate retrieval
 - **Evolution Pipeline**: Tournament selection, hard elitism, adaptive mutation based on cognitive tension
-- **Nuclear Phenotype Injection**: 8× repeated behavioral instructions for traits >0.60 create measurable model behavior changes
+- **Nuclear Phenotype Injection**: 8x repeated behavioral instructions for traits above 0.60 create measurable model behavior changes
 
 **What Works:**
 - Contradiction detection with 88%+ precision using state-of-the-art NLI models
-- Genome mutation driven by cognitive tension (0.2 → 8.0 observed in live runs)
+- Genome mutation driven by cognitive tension (0.2 to 8.0 observed in live runs)
 - Hard top-5 elitism preserves best-performing personality configurations
-- Traits visibly evolve: curiosity 0.45→0.55, caution 0.49→0.52, risk 0.48→0.56
-- Complete 50-seed evolution runs in ~8-10 minutes on GPU
+- Traits visibly evolve: curiosity 0.45 to 0.55, caution 0.49 to 0.52, risk 0.48 to 0.56
+- Complete 50-seed evolution runs in about 8-10 minutes on GPU
 
 **What's Demonstrated:**
-A complete evolutionary loop: genome → phenotype → fitness → selection → mutation → repeat. The infrastructure for evolving LLM personalities through cognitive pressure is fully operational.
+A complete evolutionary loop: genome to phenotype to fitness to selection to mutation and repeat. The infrastructure for evolving LLM personalities through cognitive pressure is fully operational.
 
 ## How To Use
 
@@ -65,36 +65,36 @@ print(response)
 
 **What the GIF shows when it plays:**
 
-Watch the nodes grow as tension builds. The hot red edges are contradictions forming between opposing beliefs. Gold nodes (identity) stay relatively stable while cyan (curiosity) and orange (risk) explode in size. When a node gets big enough, you see a neon glow ring pulse around it — that's peak tension right before genome mutation.
+Watch the nodes grow as tension builds. The hot red edges are contradictions forming between opposing beliefs. Gold nodes (identity) stay relatively stable while cyan (curiosity) and orange (risk) explode in size. When a node gets big enough, you see a neon glow ring pulse around it - that's peak tension right before genome mutation.
 
 The graph reorganizes every frame. New nodes appear as beliefs are extracted from each message. Contradiction edges turn green when beliefs align. The whole thing is color-coded: cyan = curiosity, gold = identity, hot pink = humor, orange = caution/risk, spring green = empathy.
 
 By frame 10, you can see which personality dimensions dominated the conversation. The bigger the node, the more cognitive pressure it created.
 
 **Modes:**
-- `Shadow()` — real mode (optional YubiKey + encrypted vault)
-- `Shadow(mode="dev")` — passphrase only, persistent vault (recommended)
-- `Shadow(mode="demo")` — ephemeral in-memory state for testing
+- `Shadow()` - real mode (optional YubiKey + encrypted vault)
+- `Shadow(mode="dev")` - passphrase only, persistent vault (recommended)
+- `Shadow(mode="demo")` - ephemeral in-memory state for testing
 
 See `demo/run.py` and `test_real_mode.py` for complete working examples.
 
 ## How It Works
 
-1. **Belief Extraction**: Each message → beliefs with confidence scores
-2. **Semantic Similarity**: sentence-transformers embeddings + FAISS HNSW index for fast nearest-neighbor search
-3. **Contradiction Detection**: DeBERTa-v3-large NLI model checks pairs with cosine similarity >0.92
-4. **Edge Creation**: Contradictions (confidence >0.85) get edges in the belief graph
-5. **Tension Calculation**: Per-trait tension = sum of contradiction counts × confidence
-6. **Genome Mutation**: Gaussian noise with σ = tension × segment_weight × mutation_rate (0.008)
-7. **Trait Expression**: 512 floats → 8 trait averages (64 floats each) → phenotype
-8. **Personality Injection**: Nuclear-level repetition (8× for high traits) in system prompt
+1. **Belief Extraction**: Each message produces beliefs with confidence scores
+2. **Semantic Similarity**: sentence-transformers embeddings plus FAISS HNSW index for fast nearest-neighbor search
+3. **Contradiction Detection**: DeBERTa-v3-large NLI model checks pairs with cosine similarity above 0.92
+4. **Edge Creation**: Contradictions (confidence above 0.85) get edges in the belief graph
+5. **Tension Calculation**: Per-trait tension equals sum of contradiction counts times confidence
+6. **Genome Mutation**: Gaussian noise with sigma equal to tension times segment_weight times mutation_rate (0.008)
+7. **Trait Expression**: 512 floats become 8 trait averages (64 floats each) which becomes phenotype
+8. **Personality Injection**: Nuclear-level repetition (8x for high traits) in system prompt
 9. **Response Generation**: LLM generates with evolved personality biases
 10. **Evolution Loop**: Tournament selection from top performers, hard elitism preserves best 5
 
 **Key Design Choices:**
-- Core stability mutates 10× slower than other traits (personality consistency)
+- Core stability mutates 10x slower than other traits (personality consistency)
 - Curiosity has hard floor of 0.40 (maintains exploration drive)
-- Adaptive mutation: 50% reduction when tension >4.0 (prevents destruction of near-peak genomes)
+- Adaptive mutation: 50% reduction when tension above 4.0 (prevents destruction of near-peak genomes)
 - Top-5 hard elitism: best genomes always survive to next generation
 
 ## Technical Details
@@ -115,7 +115,7 @@ See `demo/run.py` and `test_real_mode.py` for complete working examples.
 **LLM:**
 - llama-cpp-python with CUDA support
 - Tested with Llama-3.1-8B-Instruct (Q5_K_M quantization)
-- Nuclear phenotype injection: 8× repetition for dominant traits
+- Nuclear phenotype injection: 8x repetition for dominant traits
 - Models loaded from `shadowecology/models/` (not committed to repo)
 
 **Evolution:**
@@ -128,11 +128,11 @@ See `demo/run.py` and `test_real_mode.py` for complete working examples.
 
 Deep-space black background. Neon colors hand-picked to pop: electric cyan (curiosity), pure gold (identity), hot pink (humor), vivid orange (caution/risk), spring green (empathy).
 
-Nodes grow when tension accumulates. High-tension nodes (>0.5) get pulsing glow rings. Contradiction edges are thick hot red (4px). Agreement edges are thinner bright green (3px).
+Nodes grow when tension accumulates. High-tension nodes (above 0.5) get pulsing glow rings. Contradiction edges are thick hot red (4px). Agreement edges are thinner bright green (3px).
 
-The layout uses spring-force physics with slight jitter so it looks organic, not mechanical. Labels are crisp white with black stroke — readable on any screen.
+The layout uses spring-force physics with slight jitter so it looks organic, not mechanical. Labels are crisp white with black stroke - readable on any screen.
 
-Each frame = one message processed. 600ms per frame. Title shows which step you're on. File size ~140KB after aggressive palette optimization (64 colors) and disposal tricks.
+Each frame equals one message processed. 600ms per frame. Title shows which step you're on. File size around 140KB after aggressive palette optimization (64 colors) and disposal tricks.
 
 ## Installation
 
@@ -160,13 +160,13 @@ python demo/run.py
 - Python 3.12+
 - CUDA-capable GPU (tested on RTX 5070, 11.5GB VRAM)
 - CUDA libraries accessible (typically `/usr/local/lib/ollama/cuda_v12` or similar)
-- ~6GB model file (e.g., Llama-3.1-8B GGUF)
+- About 6GB model file (e.g., Llama-3.1-8B GGUF)
 
 ## Why This Exists
 
 I wanted to see what happens when you let contradictions accumulate instead of resolving them. When you let a mind hold opposing beliefs simultaneously and feel the tension from that. When personality shifts come from cognitive pressure, not gradient descent.
 
-Every line here is human-written. No AI boilerplate, no copy-paste, no framework magic. The code is intentionally minimal — read it and you'll understand exactly what's happening.
+Every line here is human-written. No AI boilerplate, no copy-paste, no framework magic. The code is intentionally minimal - read it and you'll understand exactly what's happening.
 
 This isn't production ML. It's an experiment. Can accumulated contradictions over time create something that feels different from a model trained on static data? I don't know yet. But the GIF above suggests something interesting is happening.
 
@@ -182,14 +182,14 @@ This isn't production ML. It's an experiment. Can accumulated contradictions ove
 
 This is v2. The core architecture is solid. The evolution loop works. But there's more to explore:
 
-- **Trained LoRA adapters**: 8 × rank-32 per-trait adapters would create stronger genome→phenotype connection than prompts alone
-- **SQLite lattice backend**: Replace in-memory dict for >200k node scalability
+- **Trained LoRA adapters**: 8 rank-32 per-trait adapters would create stronger genome-to-phenotype connection than prompts alone
+- **SQLite lattice backend**: Replace in-memory dict for above 200k node scalability
 - **Graph-aware tension**: Consider node centrality, clustering in tension calculations
 - **Long-term evolution**: Run 1000+ seed experiments, track personality drift over extended periods
 - **Multi-task benchmarks**: Expand beyond TruthfulQA/Winogrande to test generalization
 
 ## License
 
-MIT License — Copyright (c) 2025 Bradley R. Kinnard
+MIT License - Copyright (c) 2025 Bradley R. Kinnard
 
 The code is open. Your mind's genome is yours alone.
