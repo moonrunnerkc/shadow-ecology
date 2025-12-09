@@ -5,39 +5,34 @@
 
 **Author:** [Bradley R. Kinnard](https://www.linkedin.com/in/brad-kinnard/) | [Aftermath Technologies](https://aftermathtech.com)
 
-A cognitive architecture where contradictions create tension, tension mutates personality, and minds evolve through accumulated experience rather than training.
+A cognitive architecture where contradictions create tension, tension mutates personality, and minds evolve through time.
 
-## What It Does
+## What This Is
 
-Maintains beliefs that contradict each other. Calculates tension from those contradictions. Mutates an 8192-bit genome when tension gets high enough. Expresses that genome as personality biases that shape LLM responses.
+Feed it contradictory thoughts. Watch it build a belief graph where opposing ideas coexist. See tension accumulate at the contradiction points. Then watch an 8192-bit genome mutate in response — bit flips that shift personality traits like curiosity, caution, risk tolerance.
 
-No gradient descent. No fine-tuning. No reward functions. Just beliefs, edges, tension, and mutation over time.
+Those mutations express as biases that reshape how an LLM responds. Not through training. Just accumulated cognitive pressure over time.
+
+![Tension Evolution](demo/output/shadow_trace.gif)
+
+**What you're seeing above:** Neon nodes exploding in size as contradictions pile up. Hot red edges connecting opposing beliefs. The graph reorganizing as new tensions emerge. Each frame is one message processed. The colors are the 8 personality dimensions fighting for dominance.
 
 ## Current State
 
-**Complete and Working:**
-- ✅ Vault system (AES-256-GCM + optional YubiKey + atomic writes)
-- ✅ Belief lattice with automatic contradiction detection via sentiment analysis
-- ✅ Tension calculation (per-node + aggregated by cognitive tag)
-- ✅ 8192-bit genome (8 segments: curiosity, caution, humor, verbosity, depth, risk, empathy, identity)
-- ✅ Genome mutation under tension with weighted segment mutation
-- ✅ Personality expression (genome → 8 bias floats with curiosity floor at 0.30)
-- ✅ GPU-accelerated LLM integration (llama-cpp-python with CUDA)
-- ✅ Deep-space neon trace visualization (animated GIF)
-- ✅ Full pipeline: `Shadow().ingest(thread)` → trace + evolved response
-- ✅ Three modes: real (vault), dev (passphrase only), demo (ephemeral)
+**What Works Right Now:**
 
-**Latest Test Results (Dec 8, 2025):**
-```
-✓ 18 bits mutated in genome
-✓ Tension: 4.9+ across identity, empathy, risk, caution tags
-✓ 2 conditional nodes created from contradictions
-✓ Response: 1.3KB (Llama-3.1-8B on RTX 5070)
-✓ Trace GIF: 141KB, 10 frames, deep-space neon aesthetic
-✓ Persistent vault: step counter 8 → 16 → 24 across runs
-```
+Everything. The vault encrypts state. The lattice detects contradictions. Tension accumulates. The genome mutates. Personality shifts. The LLM responds differently.
 
-See `tests/results/final_test.txt` and `demo/output/` for complete outputs.
+**Real Test from Today (Dec 8):**
+- Started: fresh genome, step 0
+- Fed it: 10 messages full of contradictions about risk vs safety
+- Result: 18 bits flipped, tension peaked at 4.9 across multiple personality dimensions
+- Output: [1.3KB evolved response](demo/output/final_response.txt) that no fresh model would produce
+- Visual proof: [141KB animated trace](demo/output/shadow_trace.gif) showing the whole evolution
+
+Ran it three times in dev mode (persistent vault). Step counter went 8 → 16 → 24. The genome kept evolving. Each run produced different responses as the personality drifted.
+
+Full test log: [`tests/results/final_test.txt`](tests/results/final_test.txt)
 
 ## How To Use
 
@@ -63,12 +58,13 @@ trace.save_gif("shadow_trace.gif")
 print(response)
 ```
 
-**The GIF shows:**
-- Neon nodes pulsing with cognitive tension (size = tension level)
-- Hot red contradiction edges vs bright green agreement edges
-- Rainbow of 8 personality dimensions (cyan curiosity, gold identity, hot pink humor, etc.)
-- Glow rings around high-tension nodes
-- Frame-by-frame evolution as beliefs contradict and genome mutates
+**What the GIF shows when it plays:**
+
+Watch the nodes grow as tension builds. The hot red edges are contradictions forming between opposing beliefs. Gold nodes (identity) stay relatively stable while cyan (curiosity) and orange (risk) explode in size. When a node gets big enough, you see a neon glow ring pulse around it — that's peak tension right before genome mutation.
+
+The graph reorganizes every frame. New nodes appear as beliefs are extracted from each message. Contradiction edges turn green when beliefs align. The whole thing is color-coded: cyan = curiosity, gold = identity, hot pink = humor, orange = caution/risk, spring green = empathy.
+
+By frame 10, you can see which personality dimensions dominated the conversation. The bigger the node, the more cognitive pressure it created.
 
 **Modes:**
 - `Shadow()` — real mode (optional YubiKey + encrypted vault)
@@ -114,16 +110,15 @@ See `demo/run.py` and `test_real_mode.py` for complete working examples.
 - 8 bias floats injected into system prompt
 - Models loaded from `shadowecology/models/` (not committed to repo)
 
-**Visualization:**
-- Deep-space black background (#000000) with neon color palette
-- Hand-tuned colors: electric cyan (curiosity), pure gold (identity), hot pink (humor), vivid orange (caution/risk)
-- Neon glow rings around high-tension nodes (tension > 0.5)
-- Thicker contradiction edges (4px hot red) vs agreement edges (3px bright green)
-- Spring-force circular layout with visual jitter for organic feel
-- Crisp white labels with black stroke for readability on any screen
-- Per-frame title: "Cognitive Tension – Step N"
-- Optimized to ~140KB via palette quantization (64 colors) + disposal optimization
-- One frame per message processed, 600ms duration
+**How the Visualization Works:**
+
+Deep-space black background. Neon colors hand-picked to pop: electric cyan (curiosity), pure gold (identity), hot pink (humor), vivid orange (caution/risk), spring green (empathy).
+
+Nodes grow when tension accumulates. High-tension nodes (>0.5) get pulsing glow rings. Contradiction edges are thick hot red (4px). Agreement edges are thinner bright green (3px).
+
+The layout uses spring-force physics with slight jitter so it looks organic, not mechanical. Labels are crisp white with black stroke — readable on any screen.
+
+Each frame = one message processed. 600ms per frame. Title shows which step you're on. File size ~140KB after aggressive palette optimization (64 colors) and disposal tricks.
 
 ## Installation
 
@@ -153,13 +148,13 @@ python demo/run.py
 - CUDA libraries accessible (typically `/usr/local/lib/ollama/cuda_v12` or similar)
 - ~6GB model file (e.g., Llama-3.1-8B GGUF)
 
-## Project Philosophy
+## Why This Exists
 
-Every line of code in this repo was written by a human. No AI-generated boilerplate, no copy-paste from Stack Overflow, no tutorials. Just one developer experimenting with what happens when you treat contradictions as a feature instead of a bug.
+I wanted to see what happens when you let contradictions accumulate instead of resolving them. When you let a mind hold opposing beliefs simultaneously and feel the tension from that. When personality shifts come from cognitive pressure, not gradient descent.
 
-The architecture is intentionally minimal. No frameworks, no abstractions that hide the mechanism. If you read the code, you understand exactly what's happening.
+Every line here is human-written. No AI boilerplate, no copy-paste, no framework magic. The code is intentionally minimal — read it and you'll understand exactly what's happening.
 
-This isn't production ML. It's a sandbox for exploring cognitive pressure, personality mutation, and whether accumulated contradictions can create something that feels genuinely different over time.
+This isn't production ML. It's an experiment. Can accumulated contradictions over time create something that feels different from a model trained on static data? I don't know yet. But the GIF above suggests something interesting is happening.
 
 ## Known Limitations
 
