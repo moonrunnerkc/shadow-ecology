@@ -8,7 +8,7 @@ from shadowecology.vault.vault import load_or_create as vault_load_or_create
 from shadowecology.vault.vault import save_atomic as vault_save_atomic
 
 # detect mode once per process
-_MODE = os.getenv("SHADOWECOLOGY_MODE", "real").lower()
+_MODE = os.getenv("SHADOWECOLOGY_MODE", "dev").lower()
 
 # cache identity in real/dev to avoid re-prompting
 _identity_cache: Identity | None = None

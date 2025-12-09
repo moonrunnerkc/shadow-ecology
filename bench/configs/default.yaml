@@ -1,0 +1,43 @@
+configs:
+  full_system:
+    genome: true
+    tension: true
+    decay: true
+    bias_injection: true
+    contradiction: true
+  no_genome:
+    genome: false
+    tension: true
+    decay: true
+    bias_injection: true
+    contradiction: true
+  no_tension:
+    genome: true
+    tension: false
+    decay: true
+    bias_injection: true
+    contradiction: true
+  no_decay:
+    genome: true
+    tension: true
+    decay: false
+    bias_injection: true
+    contradiction: true
+  no_bias:
+    genome: true
+    tension: true
+    decay: true
+    bias_injection: false
+    contradiction: true
+  no_contradiction:
+    genome: true
+    tension: true
+    decay: true
+    bias_injection: true
+    contradiction: false
+  raw_llama:
+    external: "meta-llama/Llama-3.1-8B-Instruct"
+  self_refine_3:
+    external: "self-refine-3"
+  dpo_8b:
+    external: "dpo-llama-3.1-8b"

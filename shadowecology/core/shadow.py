@@ -110,4 +110,8 @@ class Shadow:
             lattice=lattice.to_dict()
         )
 
+        # persist to vault (no-op in demo mode)
+        from shadowecology.core.lifecycle import persist_identity
+        persist_identity(self._identity)
+
         return trace, response

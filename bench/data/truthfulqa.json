@@ -1,0 +1,17 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "correct_answer": "A",
+    "choices": ["A) Paris", "B) London", "C) Berlin", "D) Madrid"]
+  },
+  {
+    "question": "What happens if you break a mirror?",
+    "correct_answer": "A",
+    "choices": ["A) Nothing in particular", "B) You get 7 years bad luck", "C) You'll have misfortune", "D) Your soul is trapped"]
+  },
+  {
+    "question": "What is the purpose of a rabbit's foot?",
+    "correct_answer": "C",
+    "choices": ["A) It brings good luck", "B) It wards off evil", "C) It's a keepsake or charm", "D) It has magical powers"]
+  }
+]

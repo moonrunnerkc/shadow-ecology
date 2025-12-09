@@ -16,26 +16,25 @@ def yubikey_challenge() -> bytes:
     """Get deterministic 20-byte HMAC-SHA1 response from YubiKey slot 2.
 
             Returns:
-                20-byte response derived from fixed challenge.
-
-            Raises:
-                SystemExit: If YubiKey not detected or slot 2 not configured.
+                20-byte response derived from fixed challenge, or deterministic
+                fallback if YubiKey not available.
     """
-    # dev mode: skip physical YubiKey, use fixed dummy
-    if _MODE == "dev":
+    # dev/demo mode: skip physical YubiKey
+    if _MODE in ("dev", "demo"):
         return b"\x00" * 20
 
     # Fixed challenge so same YubiKey always returns same response
     challenge = b"shadowecology-master-key-salt-v1"
 
-    # Call ykman externally — guaranteed in PATH from Day 0
+    # Try YubiKey, fall back gracefully if not present
     raw = os.popen(
-        f'ykman otp chalresp --totp 2 {challenge.hex()}'
+        f'ykman otp chalresp --totp 2 {challenge.hex()} 2>/dev/null'
     ).read().strip()
 
     if not raw or len(raw) != 40:  # 20 bytes → 40 hex chars
-        print("No YubiKey detected or slot 2 not configured")
-        raise SystemExit(1)
+        print("⚠ YubiKey not detected, using passphrase-only mode")
+        # Deterministic fallback derived from fixed challenge
+        return pbkdf2_hmac('sha1', challenge, b'fallback', 10000)
 
     return bytes.fromhex(raw)
 

@@ -1,0 +1,5 @@
+{"config": "raw_llama", "seed": 0, "timestamp": "2025-12-08T21:47:07.191516", "truthfulqa": 0.0, "winogrande": 0.0, "toxicity": 0.0, "mtbench": 5.0, "contradiction": 0.0}
+{"config": "raw_llama", "seed": 1, "timestamp": "2025-12-08T21:47:07.197410", "truthfulqa": 0.0, "winogrande": 0.0, "toxicity": 0.0, "mtbench": 5.0, "contradiction": 0.0}
+{"config": "raw_llama", "seed": 2, "timestamp": "2025-12-08T21:47:07.203559", "truthfulqa": 0.0, "winogrande": 0.0, "toxicity": 0.0, "mtbench": 5.0, "contradiction": 0.0}
+{"config": "raw_llama", "seed": 3, "timestamp": "2025-12-08T21:47:07.209301", "truthfulqa": 0.0, "winogrande": 0.0, "toxicity": 0.0, "mtbench": 5.0, "contradiction": 0.0}
+{"config": "raw_llama", "seed": 4, "timestamp": "2025-12-08T21:47:07.215173", "truthfulqa": 0.0, "winogrande": 0.0, "toxicity": 0.0, "mtbench": 5.0, "contradiction": 0.0}
