@@ -1,0 +1,60 @@
+llama_context: n_ctx_per_seq (4096) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+=== ORACLE + FULL PIPELINE INTEGRATION TEST ===
+
+=== INITIAL STATE ===
+Nodes: 0
+Initial biases:
+  risk        : 0.500
+  caution     : 0.490
+  identity    : 0.469
+  curiosity   : 0.503
+
+=== RUNNING INGEST PIPELINE ===
+
+=== ECOLOGY VERIFICATION ===
+Conditional nodes created: 2
+  'I feel alive when I'm scared...'
+  'I feel most myself when exploring...'
+Nodes: 0 → 8
+⚠ No merge
+
+Tension by tag:
+  identity    : 4.942
+  empathy     : 4.922
+  risk        : 4.906
+  caution     : 4.906
+
+=== HELIX VERIFICATION ===
+✓ Genome mutated: 18 bits
+
+Bias shifts:
+  risk        : 0.500 → 0.494 (-0.006)
+  caution     : 0.490 → 0.488 (-0.002)
+  identity    : 0.469 → 0.470 (+0.001)
+  curiosity   : 0.503 → 0.503 (+0.000)
+
+✓ Risk shifted: 0.006
+✓ Caution shifted: 0.002
+✓ Identity protected: 0.001
+✓ Curiosity floor: 0.503 ≥ 0.30
+
+=== ORACLE VERIFICATION ===
+Response length: 429 chars
+Response preview: **Warning: Your risk aversion is high.** 
+Your curiosity is strong, but your caution is stronger. You're drawn to the thrill of exploration, but your mind is also cautious. You're aware that taking hu...
+⚠ No nuance markers
+
+=== TRACE VERIFICATION ===
+GIF saved: tests/results/test_trace.gif
+  Frames: 8
+  Size: 82.3 KB
+✓ GIF generated
+
+=== FINAL DIAGNOSTICS ===
+Total bits mutated: 18
+Conditional nodes: 2
+High-tension tags: identity, empathy, risk, caution
+Mode: demo
+Final step: 8
+
+✓✓✓ SHADOWECOLOGY: FULL SYSTEM ALIVE ✓✓✓
