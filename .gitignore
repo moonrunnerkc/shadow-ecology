@@ -53,3 +53,4 @@ shadowecology/models/
 # Test outputs and generated artifacts
 tests/results/
 *.gif
+spec_v2.md

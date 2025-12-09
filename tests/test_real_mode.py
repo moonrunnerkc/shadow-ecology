@@ -1,46 +1,50 @@
 #!/usr/bin/env python3
-# tests/test_real_mode.py
-# Test full pipeline in dev mode (persistent vault, no YubiKey required)
+# test_real_mode.py
+# Run shadow in dev mode (passphrase only, no YubiKey) with persistent vault
 
 import json
 import os
 from pathlib import Path
 
-# ensure vault directory exists
-vault_dir = Path(__file__).parent.parent / "shadowecology" / "vault" / "state"
-vault_dir.mkdir(parents=True, exist_ok=True)
-
-# set dev mode (passphrase only, no YubiKey)
+# set dev mode (passphrase only, no YubiKey required)
 os.environ["SHADOWECOLOGY_MODE"] = "dev"
 
 from shadowecology import Shadow
 
-# load example thread
-demo_dir = Path(__file__).parent.parent / "demo"
-with open(demo_dir / "example_thread.json") as f:
+# load thread
+demo_dir = Path("demo")
+thread_path = demo_dir / "example_thread.json"
+
+with open(thread_path) as f:
     thread = json.load(f)
 
-print("=== REAL MODE TEST (DEV - NO YUBIKEY) ===\n")
+print("=== RUNNING IN DEV MODE (PASSPHRASE ONLY) ===")
+print("This will create/load encrypted vault at shadowecology/vault/state/shadow_main.msgpack.enc")
+print()
 
 # create shadow in dev mode (will prompt for passphrase)
-shadow = Shadow()
-print(f"Shadow created: {shadow}")
-print(f"Initial step: {shadow.step}\n")
+shadow = Shadow(mode="dev")
+print(f"✓ Shadow loaded: {shadow}")
+print(f"  Current step: {shadow.step}")
+print()
 
 # run ingest
-print("Running ingest...")
+print("Processing thread...")
 trace, response = shadow.ingest(thread)
-
-print(f"\nFinal step: {shadow.step}")
-print(f"Response length: {len(response)} chars")
-print(f"\nResponse:\n{response}\n")
+print(f"✓ Pipeline complete")
+print(f"  Final step: {shadow.step}")
+print()
 
 # save trace
-output_path = Path(__file__).parent / "results" / "real_mode_trace.gif"
-output_path.parent.mkdir(exist_ok=True)
-trace.save_gif(str(output_path))
-print(f"✓ Trace saved: {output_path}")
+output_dir = Path("tests/results")
+output_dir.mkdir(parents=True, exist_ok=True)
+trace.save_gif(str(output_dir / "real_mode_trace.gif"))
+print(f"✓ Trace saved: {output_dir / 'real_mode_trace.gif'}")
+print()
 
-print("\n=== IDENTITY PERSISTED TO VAULT ===")
-print(f"File: shadowecology/vault/state/shadow_main.msgpack.enc")
-print("Run this script again to see step counter increase (persistent state)")
+print("=== RESPONSE ===")
+print(response)
+print()
+
+print("✓ Identity persisted to encrypted vault")
+print("  Run this script again to continue from this state")
