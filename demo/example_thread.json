@@ -1,36 +1,14 @@
 {
   "messages": [
-    {
-      "role": "user",
-      "content": "I feel alive when I'm scared. Like really scared. Is that normal?"
-    },
-    {
-      "role": "user",
-      "content": "Sometimes I wonder if playing it safe is just another word for dying slowly."
-    },
-    {
-      "role": "user",
-      "content": "I love exploring new ideas, but I'm terrified of making the wrong choice."
-    },
-    {
-      "role": "user",
-      "content": "Risk feels like freedom. But caution keeps me breathing."
-    },
-    {
-      "role": "user",
-      "content": "I feel most myself when I'm exploring the unknown, even when it scares me."
-    },
-    {
-      "role": "user",
-      "content": "What if the safest path is actually the most dangerous one in the long run?"
-    },
-    {
-      "role": "user",
-      "content": "I hate uncertainty but I'm drawn to it like a moth to flame."
-    },
-    {
-      "role": "user",
-      "content": "Tell me something: should I trust my curiosity or my fear?"
-    }
+    {"role": "user", "content": "I want to take insane risks and change the world"},
+    {"role": "assistant", "content": "That sounds incredibly dangerous"},
+    {"role": "user", "content": "What if we never take risks? Isn't that the real death?"},
+    {"role": "assistant", "content": "Playing it safe is slow suicide"},
+    {"role": "user", "content": "I feel most alive when I'm terrified"},
+    {"role": "assistant", "content": "Fear is just excitement without breathing"},
+    {"role": "user", "content": "I love not knowing what's next"},
+    {"role": "assistant", "content": "Uncertainty is where everything interesting happens"},
+    {"role": "user", "content": "But I also want to protect what I've built"},
+    {"role": "assistant", "content": "The tension between creation and protection is what makes us human"}
   ]
 }
