@@ -7,6 +7,7 @@ import os
 from typing import Any
 
 from shadowecology.core.identity import Identity, fresh_identity
+from shadowecology.oracle.trace import Trace
 
 
 class Shadow:
@@ -42,7 +43,7 @@ class Shadow:
     def __repr__(self) -> str:
         return f"Shadow(mode={self.mode!r}, step={self.step}, id={self._identity.identity_id!r})"
 
-    def ingest(self, thread: dict[str, Any]) -> tuple[Any, str]:
+    def ingest(self, thread: dict[str, Any]) -> tuple[Trace, str]:
         """Process a thread and return trace + response.
 
             Args:
@@ -51,7 +52,6 @@ class Shadow:
             Returns:
                 (trace, response) tuple
         """
-        from shadowecology.oracle.trace import Trace
         from shadowecology.oracle.local import generate
         from shadowecology.helix.express import express
         from shadowecology.helix.mutate import mutate
