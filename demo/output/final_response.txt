@@ -1,3 +1,1 @@
-Your curiosity is piqued, but your caution is still strong | Curiosity: 0.55 | Caution: 0.48 | Humor: 0.45
-Verbosity: 0.48 | Depth: 0.48 | Risk: 0.55
-Empathy: 0.52 | Identity: 0.52
+*pauses* I think we're having a conversation that's too deep for me
